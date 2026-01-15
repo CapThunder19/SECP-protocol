@@ -15,8 +15,6 @@ contract SECPBorrow {
     IVault public vault;
     uint public debt;
     bool public protectedMode;
-    bool public rwaLocked;
-    uint256[] public rwaAssetIds;
 
     constructor(address _vault) {
         vault = IVault(_vault);
@@ -45,11 +43,6 @@ contract SECPBorrow {
         return vault.totalValue() * 100 / debt;
     }
 
-    function setRWAAssets(uint256[] memory assetIds) external {
-        require(rwaAssetIds.length == 0, "Already set");
-        rwaAssetIds = assetIds;
-    }
-
     // 🔥 Anti-liquidation logic with automatic crash simulation
     function checkAndProtect() external {
         require(!protectedMode, "Already protected");
@@ -71,26 +64,11 @@ contract SECPBorrow {
             vault.divertYield(yieldToUse);
             debt -= yieldToUse;
         }
-        
-        // Also lock RWA assets automatically
-        if (!rwaLocked && rwaAssetIds.length > 0) {
-            rwaLocked = true;
-            vault.lockRWA(rwaAssetIds);
-        }
-    }
-
-    // 🏠 Advanced protection: Lock RWA when health critically low
-    function checkAndLockRWA() external {
-        if (healthFactor() < 110 && !rwaLocked && rwaAssetIds.length > 0) {
-            rwaLocked = true;
-            vault.lockRWA(rwaAssetIds);
-        }
     }
 
     // 🔄 Reset protection for testing (only for demo purposes)
     function resetProtection() external {
         protectedMode = false;
-        rwaLocked = false;
         vault.resetMode();
     }
 }

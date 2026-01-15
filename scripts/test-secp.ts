@@ -1,4 +1,5 @@
 import { network } from "hardhat";
+import * as fs from 'fs';
 
 async function main() {
   const { viem } = await network.connect();
@@ -7,15 +8,9 @@ async function main() {
   console.log("\n🔍 SECP Protocol Health Check\n");
   console.log("=" .repeat(60));
   
-  // Contract addresses
-  const addresses = {
-    riskyToken: "0x026b61b7795b434c97cc2c263fefc2e79fd2ef41" as const,
-    safeToken: "0xe7991ddffbc49fe06eb0c307c627e1264e4b55f3" as const,
-    yieldToken: "0x84b23dd15bf3e21f12ba29db635c5ce9fe81c345" as const,
-    vault: "0x069f47749063d93180afb7a1e8589267a32d5a8a" as const,
-    borrow: "0xcd6c4ab855512f36d5c0b0ed9b2057293fd3d438" as const,
-    rwa: "0x55bdafa6b9e7762684305615828a49589f4d7ee5" as const,
-  };
+  // Load addresses from deployment file
+  const deploymentData = JSON.parse(fs.readFileSync('deployed-addresses.json', 'utf8'));
+  const addresses = deploymentData.contracts;
 
   console.log("\n📍 Contract Addresses:");
   console.log("   Vault:  ", addresses.vault);
@@ -55,11 +50,9 @@ async function main() {
   console.log("\n💳 Loan Status:");
   const debt = await Borrow.read.debt();
   const protectedMode = await Borrow.read.protectedMode();
-  const rwaLocked = await Borrow.read.rwaLocked();
   
   console.log("   Debt:          ", Number(debt / 10n ** 18n), "tokens");
   console.log("   Protected:     ", protectedMode ? "✅ YES" : "❌ NO");
-  console.log("   RWA Locked:    ", rwaLocked ? "✅ YES" : "❌ NO");
   
   if (debt > 0n) {
     const health = await Borrow.read.healthFactor();

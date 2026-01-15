@@ -1,8 +1,13 @@
 import { network } from "hardhat";
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function main() {
   const { viem } = await network.connect();
   const [deployer] = await viem.getWalletClients();
+  const publicClient = await viem.getPublicClient();
 
   console.log("Deploying with:", deployer.account.address);
 
@@ -54,10 +59,17 @@ async function main() {
   console.log("Borrow:", Borrow.address);
 
   // ========== Connect vault <-> loan ==========
-  await Vault.write.setLoanContract([Borrow.address]);
-  await RWA.write.setProtocolVault([Vault.address]);
-
+  console.log("\nLinking contracts...");
+  await sleep(2000);
+  
+  const hash1 = await Vault.write.setLoanContract([Borrow.address]);
+  await publicClient.waitForTransactionReceipt({ hash: hash1 });
   console.log("Vault linked to Borrow contract");
+  
+  await sleep(2000);
+  
+  const hash2 = await RWA.write.setProtocolVault([Vault.address]);
+  await publicClient.waitForTransactionReceipt({ hash: hash2 });
   console.log("RWA linked to Vault");
 
   // Save deployment info
@@ -89,7 +101,7 @@ async function main() {
     JSON.stringify(deploymentInfo, null, 2)
   );
 
-  console.log("\n🎉 SECP with RWA deployed successfully!");
+  console.log("\n🎉 SECP deployed successfully!");
   console.log("\n📝 Deployment info saved to deployed-addresses.json");
 }
 

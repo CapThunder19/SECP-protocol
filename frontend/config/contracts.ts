@@ -1,10 +1,10 @@
 export const contracts = {
-  vault: "0xa9a96253175e35b7646affe39ea8bdd691862844",
-  borrow: "0xcbd1fad1307d2fa836860e2f90160f18ce7bd4c2",
-  riskyToken: "0x20dc7b20f2ec228d2407af703cd83d590ed2f590",
-  safeToken: "0xa336096449c844eb744e7cbbf3f261788805e451",
-  yieldToken: "0x050fefc8caab089f2638ae89b6d78bfbb8d37772",
-  rwaToken: "0x9d73a7ab8b952bfb39aaef74843b01895b8e194f",
+  vault: "0xb6fc40be63efeb8a309f808b3fa6389a3b2de06e",
+  borrow: "0x3f590a674c35f5cb9e27d5db65e733d74cb6e460",
+  riskyToken: "0x149c42dd0a91b13fb8b4541febe7d5963efdb13d",
+  safeToken: "0x6fe41f4b1ca583b3969328868b8a576baf86cbfb",
+  yieldToken: "0xc1b35232e5512561401e75df5e5c303776d834bb",
+  rwaToken: "0x30c5312b92e42a9d83de1e96d93d2f0707cc3636",
 } as const;
 
 export const MANTLE_SEPOLIA_CHAIN_ID = 5003;
