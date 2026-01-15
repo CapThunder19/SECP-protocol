@@ -1,0 +1,19 @@
+{
+  "network": "mantleSepolia",
+  "chainId": 5003,
+  "deployer": "0x06cadb961ac800b4bc11f0e5e7c7634810972536",
+  "contracts": {
+    "riskyToken": "0x2910009bb55f0f1efc4408f1b794600ac529bcc3",
+    "safeToken": "0x90c5f5af3086655d10e3daa70c97e8f605a333c8",
+    "yieldToken": "0xc500240db43ef946eb0fed6c2f3c80a2d5195a8e",
+    "vault": "0xa0fa71cba7361205b0e0db428ec0c51f8d9937cd",
+    "borrow": "0xbed7cf7901215030751c4e5c3ac36e6acc33d51e"
+  },
+  "explorer": {
+    "riskyToken": "https://explorer.sepolia.mantle.xyz/address/0x2910009bb55f0f1efc4408f1b794600ac529bcc3",
+    "safeToken": "https://explorer.sepolia.mantle.xyz/address/0x90c5f5af3086655d10e3daa70c97e8f605a333c8",
+    "yieldToken": "https://explorer.sepolia.mantle.xyz/address/0xc500240db43ef946eb0fed6c2f3c80a2d5195a8e",
+    "vault": "https://explorer.sepolia.mantle.xyz/address/0xa0fa71cba7361205b0e0db428ec0c51f8d9937cd",
+    "borrow": "https://explorer.sepolia.mantle.xyz/address/0xbed7cf7901215030751c4e5c3ac36e6acc33d51e"
+  }
+}
