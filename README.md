@@ -81,10 +81,10 @@ Features:
 ```solidity
 Features:
 - Health factor monitoring (150% minimum)
-- Automatic protection triggering at 120% health
+- Automatic protection triggering
 - Yield diversion to debt reduction
-- RWA asset locking when health drops below 110%
 - Collateral validation before loan issuance
+- Simplified crash simulation for testing
 ```
 
 #### 4. **MockERC20.sol** - Token Implementation
@@ -130,10 +130,9 @@ Standard ERC20 tokens for testing:
 
 3. **Health Monitoring**
    - System continuously monitors health factor
-   - Three protection thresholds:
+   - Two protection thresholds:
      - **150%+**: Normal operation ✅
-     - **120%**: Auto-rebalancing triggered 🟡
-     - **110%**: RWA emergency locking activated 🔴
+     - **120%**: Auto-rebalancing and yield diversion triggered 🟡
 
 ### Emergency Protection Sequence
 
@@ -153,12 +152,13 @@ Standard ERC20 tokens for testing:
 4. User retains core collateral
 ```
 
-#### Stage 3: RWA Locking (Health < 110%)
+#### Future Enhancement: RWA Integration
 ```
-1. Registered RWA assets locked
-2. Asset value added to total collateral
-3. Prevents liquidation as last resort
-4. User maintains position ownership
+The protocol includes RWA token infrastructure for future
+emergency collateral features:
+- Tokenized real-world assets can be deposited
+- Vault can lock RWA during crash mode
+- Provides additional protection layer when implemented
 ```
 
 ### Example Scenario
@@ -284,12 +284,12 @@ See [TESTING-GUIDE.md](./TESTING-GUIDE.md) for detailed testing instructions.
 ## 📊 Contract Addresses (Mantle Sepolia)
 
 ```
-Vault:        0xa0fa71cba7361205b0e0db428ec0c51f8d9937cd
-Borrow:       0xbed7cf7901215030751c4e5c3ac36e6acc33d51e
-Risky Token:  0x2910009bb55f0f1efc4408f1b794600ac529bcc3
-Safe Token:   0x90c5f5af3086655d10e3daa70c97e8f605a333c8
-Yield Token:  0xc500240db43ef946eb0fed6c2f3c80a2d5195a8e
-RWA Token:    (check deployed-addresses.json)
+Vault:        0xb6fc40be63efeb8a309f808b3fa6389a3b2de06e
+Borrow:       0x3f590a674c35f5cb9e27d5db65e733d74cb6e460
+Risky Token:  0x149c42dd0a91b13fb8b4541febe7d5963efdb13d
+Safe Token:   0x6fe41f4b1ca583b3969328868b8a576baf86cbfb
+Yield Token:  0xc1b35232e5512561401e75df5e5c303776d834bb
+RWA Token:    0x30c5312b92e42a9d83de1e96d93d2f0707cc3636
 ```
 
 View on Explorer: [Mantle Sepolia Explorer](https://explorer.sepolia.mantle.xyz)
